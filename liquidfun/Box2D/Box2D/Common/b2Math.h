@@ -25,19 +25,15 @@
 /// This function is used to ensure that a floating point number is not a NaN or infinity.
 inline bool b2IsValid(float32 x)
 {
-	union {
-		float32 f;
-		int32 i;
-	} v = { x };
-	return (v.i & 0x7f800000) != 0x7f800000;
+	return isfinite(x);
 }
 
 /// This is a approximate yet fast inverse square-root.
-inline float32 b2InvSqrt(float32 x)
+inline float b2InvSqrt(float x)
 {
 	union
 	{
-		float32 x;
+		float x;
 		int32 i;
 	} convert;
 
@@ -144,25 +140,25 @@ struct b2Vec2
 };
 
 /// Add a float to a vector.
-inline b2Vec2 operator + (const b2Vec2& v, float f)
+inline b2Vec2 operator + (const b2Vec2& v, float32 f)
 {
 	return b2Vec2(v.x + f, v.y + f);
 }
 
 /// Substract a float from a vector.
-inline b2Vec2 operator - (const b2Vec2& v, float f)
+inline b2Vec2 operator - (const b2Vec2& v, float32 f)
 {
 	return b2Vec2(v.x - f, v.y - f);
 }
 
 /// Multiply a float with a vector.
-inline b2Vec2 operator * (const b2Vec2& v, float f)
+inline b2Vec2 operator * (const b2Vec2& v, float32 f)
 {
 	return b2Vec2(v.x * f, v.y * f);
 }
 
 /// Divide a vector by a float.
-inline b2Vec2 operator / (const b2Vec2& v, float f)
+inline b2Vec2 operator / (const b2Vec2& v, float32 f)
 {
 	return b2Vec2(v.x / f, v.y / f);
 }
@@ -714,6 +710,11 @@ inline T b2Min(T a, T b)
 	return a < b ? a : b;
 }
 
+inline float32 b2Min(float32 a, float32 b)
+{
+	return a < b ? a : b;
+}
+
 inline b2Vec2 b2Min(const b2Vec2& a, const b2Vec2& b)
 {
 	return b2Vec2(b2Min(a.x, b.x), b2Min(a.y, b.y));
@@ -725,6 +726,11 @@ inline T b2Max(T a, T b)
 	return a > b ? a : b;
 }
 
+inline float32 b2Max(float32 a, float32 b)
+{
+	return a > b ? a : b;
+}
+
 inline b2Vec2 b2Max(const b2Vec2& a, const b2Vec2& b)
 {
 	return b2Vec2(b2Max(a.x, b.x), b2Max(a.y, b.y));
@@ -732,6 +738,11 @@ inline b2Vec2 b2Max(const b2Vec2& a, const b2Vec2& b)
 
 template <typename T>
 inline T b2Clamp(T a, T low, T high)
+{
+	return b2Max(low, b2Min(a, high));
+}
+
+inline float32 b2Clamp(float32 a, float32 low, float32 high)
 {
 	return b2Max(low, b2Min(a, high));
 }
