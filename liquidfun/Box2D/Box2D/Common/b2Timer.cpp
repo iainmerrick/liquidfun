@@ -59,10 +59,10 @@ void b2Timer::Reset()
 	m_start = GetTicks();
 }
 
-float32 b2Timer::GetMilliseconds() const
+float b2Timer::GetMilliseconds() const
 {
 	int64 elapsed = GetTicks() - m_start;
-	return (float32)(s_invFrequency * elapsed);
+	return (float)(s_invFrequency * elapsed);
 }
 
 #elif defined(__linux__) || defined (__APPLE__)
@@ -110,10 +110,10 @@ void b2Timer::Reset()
 	m_start = GetTicks();
 }
 
-float32 b2Timer::GetMilliseconds() const
+float b2Timer::GetMilliseconds() const
 {
-	static const float32 kTicksToMs = 0.000001f;
-	return kTicksToMs * (float32)(GetTicks() - m_start);
+	static const float kTicksToMs = 0.000001f;
+	return kTicksToMs * (float)(GetTicks() - m_start);
 }
 
 #else
@@ -126,7 +126,7 @@ void b2Timer::Reset()
 {
 }
 
-float32 b2Timer::GetMilliseconds() const
+float b2Timer::GetMilliseconds() const
 {
 	return 0.0f;
 }
