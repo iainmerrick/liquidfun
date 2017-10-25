@@ -60,8 +60,8 @@ typedef long long int64;
 typedef unsigned long long uint64;
 #endif
 
-#define	b2_maxFloat		FLT_MAX
-#define	b2_epsilon		FLT_EPSILON
+#define	b2_maxFloat		std::numeric_limits<float32>::max()
+#define	b2_epsilon		std::numeric_limits<float32>::epsilon()
 #define b2_pi			3.14159265359f
 
 #if !defined(b2Inline)
