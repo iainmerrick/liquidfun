@@ -25,9 +25,9 @@ b2Stat::b2Stat()
 	Clear();
 }
 
-void b2Stat::Record( float32 t )
+void b2Stat::Record( float t )
 {
-	m_total += t;
+	m_total += double(t);
 	m_min = std::min(m_min,t);
 	m_max = std::max(m_max,t);
 	m_count++;
@@ -38,21 +38,21 @@ int b2Stat::GetCount() const
 	return m_count;
 }
 
-float32 b2Stat::GetMean() const
+float b2Stat::GetMean() const
 {
 	if (m_count == 0)
 	{
 		return 0.0f;
 	}
-	return (float32)(m_total / m_count);
+	return (float)(m_total / m_count);
 }
 
-float32 b2Stat::GetMin() const
+float b2Stat::GetMin() const
 {
 	return m_min;
 }
 
-float32 b2Stat::GetMax() const
+float b2Stat::GetMax() const
 {
 	return m_max;
 }
