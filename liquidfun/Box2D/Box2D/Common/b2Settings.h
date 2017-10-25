@@ -43,6 +43,9 @@
 // Calculate the size of a static array.
 #define B2_ARRAY_SIZE(x) (sizeof(x) / sizeof((x)[0]))
 
+// Define B2_CUSTOM_NUMERIC_TYPES if you want to handle these typedefs
+// yourself (for example, to use fixed-point arithmetic).
+#ifndef B2_CUSTOM_NUMERIC_TYPES
 typedef signed char	int8;
 typedef signed short int16;
 typedef signed int int32;
@@ -51,6 +54,7 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 typedef float float32;
 typedef double float64;
+#endif
 
 #ifdef WIN32
 typedef __int64   int64;
