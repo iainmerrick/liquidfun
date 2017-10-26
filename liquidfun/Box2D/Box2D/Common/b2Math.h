@@ -28,6 +28,9 @@ inline bool b2IsValid(float32 x)
 	return isfinite(x);
 }
 
+#define	b2Sqrt(x)	sqrtf(x)
+#define	b2Atan2(y, x)	atan2f(y, x)
+
 /// This is a approximate yet fast inverse square-root.
 inline float b2InvSqrt(float x)
 {
@@ -38,15 +41,18 @@ inline float b2InvSqrt(float x)
 	} convert;
 
 	convert.x = x;
-	float32 xhalf = 0.5f * x;
+	float xhalf = 0.5f * x;
 	convert.i = 0x5f3759df - (convert.i >> 1);
 	x = convert.x;
 	x = x * (1.5f - xhalf * x * x);
 	return x;
 }
 
-#define	b2Sqrt(x)	sqrtf(x)
-#define	b2Atan2(y, x)	atan2f(y, x)
+/// Conventional inverse square root implementation for other types.
+template <typename T> T b2InvSqrt(T x)
+{
+	return 1.0f / b2Sqrt(x);
+}
 
 /// A 2D column vector.
 struct b2Vec2
