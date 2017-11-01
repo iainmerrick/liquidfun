@@ -243,7 +243,11 @@ void b2SetNumAllocs(const int32 numAllocs);
 int32 b2GetNumAllocs();
 
 /// Logging function.
-void b2Log(const char* string, ...);
+static void b2log_noop()
+{}
+#define b2Log(...) b2log_noop()
+
+#pragma clang diagnostic ignored "-Wunused-variable"
 
 /// Version numbering scheme.
 /// See http://en.wikipedia.org/wiki/Software_versioning

@@ -113,17 +113,17 @@ int32 b2GetNumAllocs()
 }
 
 // You can modify this to use your logging facility.
-void b2Log(const char* string, ...)
-{
-#if DEBUG
-	va_list args;
-	va_start(args, string);
-	vprintf(string, args);
-	va_end(args);
-#else
-	B2_NOT_USED(string);
-#endif
-}
+//void b2Log(const char* string, ...)
+//{
+//#if DEBUG
+//	va_list args;
+//	va_start(args, string);
+//	vprintf(string, args);
+//	va_end(args);
+//#else
+//	B2_NOT_USED(string);
+//#endif
+//}
 
 class Validator
 {
