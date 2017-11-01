@@ -300,6 +300,11 @@ void b2Simplex::Solve2()
 {
 	b2Vec2 w1 = m_v1.w;
 	b2Vec2 w2 = m_v2.w;
+
+	float32 k = 1.0f / b2Max(w1.x, w1.y, w2.x, w2.y);
+	w1 *= k;
+	w2 *= k;
+
 	b2Vec2 e12 = w2 - w1;
 
 	// w1 region
@@ -340,6 +345,11 @@ void b2Simplex::Solve3()
 	b2Vec2 w1 = m_v1.w;
 	b2Vec2 w2 = m_v2.w;
 	b2Vec2 w3 = m_v3.w;
+
+	float32 k = 1.0f / b2Max(w1.x, w1.y, w2.x, w2.y, w3.x, w3.y);
+	w1 *= k;
+	w2 *= k;
+	w3 *= k;
 
 	// Edge12
 	// [1      1     ][a1] = [1]
@@ -530,7 +540,7 @@ void b2Distance(b2DistanceOutput* output,
 		b2Vec2 d = simplex.GetSearchDirection();
 
 		// Ensure the search direction is numerically fit.
-		if (d.LengthSquared() < b2_epsilon * b2_epsilon)
+		if (fabsf(d.x) + fabsf(d.y) <= b2_epsilon + b2_epsilon)
 		{
 			// The origin is probably contained by a line segment
 			// or triangle. Thus the shapes are overlapped.

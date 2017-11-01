@@ -732,6 +732,30 @@ inline T b2Max(T a, T b)
 	return a > b ? a : b;
 }
 
+template <typename T>
+inline T b2Max(T a, T b, T c)
+{
+	return b2Max(b2Max(a, b), c);
+}
+
+template <typename T>
+inline T b2Max(T a, T b, T c, T d)
+{
+	return b2Max(b2Max(a, b), b2Max(c, d));
+}
+
+template <typename T>
+inline T b2Max(T a, T b, T c, T d, T e)
+{
+	return b2Max(b2Max(a, b), b2Max(c, d, e));
+}
+
+template <typename T>
+inline T b2Max(T a, T b, T c, T d, T e, T f)
+{
+	return b2Max(b2Max(a, b, c), b2Max(d, e, f));
+}
+
 inline float32 b2Max(float32 a, float32 b)
 {
 	return a > b ? a : b;

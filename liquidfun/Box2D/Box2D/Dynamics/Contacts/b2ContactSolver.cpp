@@ -230,7 +230,7 @@ void b2ContactSolver::InitializeVelocityConstraints()
 
 			// Ensure a reasonable condition number.
 			const float32 k_maxConditionNumber = 1000.0f;
-			if (k11 * k11 < k_maxConditionNumber * (k11 * k22 - k12 * k12))
+			if ((k11 * k11) / (k11 * k22 - k12 * k12) < k_maxConditionNumber )
 			{
 				// K is safe to invert.
 				vc->K.ex.Set(k11, k12);
