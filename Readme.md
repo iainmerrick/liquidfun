@@ -3,6 +3,48 @@ alt="LiquidFun logo" style="float:right;" />
 
 LiquidFun Version [1.1.0][]
 
+# IN PROGRESS - fixed point
+
+Box2D uses floating-point arithmetic, which is usually fast but usually not
+reproducible (different machines or possibly even different runs will not give
+identical output for identical input). This is because FPUs use very high
+precision internally, and the exact details are very dependent on the hardware
+and current configuration.
+
+I'm experimenting with a fixed-point build of Box2D / LiquidFun.
+
+### How to enable fixed point
+
+Add this to your project settings, prefix header or equivalent:
+```
+#define B2_CUSTOM_FLOAT32 1
+typedef my_custom_float float32;
+```
+The macro prevents `b2Settings.h` from defining `float32`.
+
+If you add my [more-fixed-cpp][] repo to your project, `more::fixed16` can act
+as a drop-in replacement for `float32`. This is a 16.16 bit fixed-point type.
+
+### Avoiding overflow
+
+[more-fixed-cpp][] currently checks for overflow via `assert`, so it will
+abort if overflow occurs. I've found that's the most useful way to catch
+precision problems early and often!
+
+As a rule of thumb, it seems to be safe if you keep physics values within the
+square root of the range. For `fixed16` that's about ±180. Box2D interprets
+sizes as metres, so this is enough for a decent-sized play area.
+
+I've hacked the Box2D code in a few places to prevent intermediate values from
+exceeding this range. That generally means scaling inputs down to roughly 1
+(e.g. by dividing by the max input) before multiplying them. This is still
+work in progress.
+
+### More caveats
+
+- I haven't verified that Box2D physics is reproducible (but that's the goal).
+- I haven't tried LiquidFun's fluid system at all yet, just Box2D solid physics.
+
 # Welcome to LiquidFun!
 
 LiquidFun is a 2D physics engine for games.  Go to our
@@ -42,3 +84,5 @@ you would leave it in.
   [Box2D]: http://box2d.org
   [Box2D/Documentation/Building/]: http://google.github.io/liquidfun/Building.html
   [Programmer's Guide]: http://google.github.io/liquidfun/Programmers-Guide.html
+
+  [more-fixed-cpp]: https://github.com/more-please/more-fixed-cpp
