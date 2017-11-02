@@ -245,9 +245,7 @@ void b2SetNumAllocs(const int32 numAllocs);
 int32 b2GetNumAllocs();
 
 /// Logging function.
-static void b2log_noop()
-{}
-#define b2Log(...) b2log_noop()
+#define b2Log(...) ((void)0)
 
 #pragma clang diagnostic ignored "-Wunused-variable"
 
