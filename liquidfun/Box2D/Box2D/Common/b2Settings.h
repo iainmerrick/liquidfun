@@ -130,7 +130,9 @@ typedef unsigned long long uint64;
 
 /// A velocity threshold for elastic collisions. Any collision with a relative linear
 /// velocity below this threshold will be treated as inelastic.
+#ifndef b2_velocityThreshold
 #define b2_velocityThreshold		1.0f
+#endif
 
 /// The maximum linear position correction used when solving constraints. This helps to
 /// prevent overshoot.
